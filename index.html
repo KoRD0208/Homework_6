@@ -41,7 +41,6 @@ class App extends React.Component {
    render() {
       let {isLoaded, items} = this.state;
 
-      
          if(!isLoaded) {
             return <div>Loading...</div>
          } else {
@@ -60,19 +59,21 @@ class UserList extends React.Component {
       }
    }
 
-
+   static propTypes = {
+      users: PropTypes.array.isRequired,
+   }
 
    render() {
       let {users} = this.state;
       console.log(users)
-      return (
-      <div className="users">
-         {
-            users.map(user => {
-            <User userProps={user} key={user.id}/>
-         })}
-      </div>
-      )
+         return (
+            <div className="users">
+               {
+                  users.map(user => {
+                  return <User userProps={user} key={user.id}/>
+               })}
+            </div>
+         )
    }
 }
 
@@ -80,14 +81,18 @@ class User extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         name: props.userProps.name,
-         userName: props.userProps.username,
-         email: props.userProps.email
+         name: this.props.userProps.name,
+         userName: this.props.userProps.username,
+         email: this.props.userProps.email
       }
    }
 
+   static propTypes = {
+      userProps: PropTypes.object.isRequired,
+   }
+
    render() {
-      let {name, userName, email} = this.props;
+      let {name, userName, email} = this.state;
       console.log(name, userName, email)
       return (
          <div className="user">
@@ -98,7 +103,7 @@ class User extends React.Component {
                <p>
                   Username:
                </p>
-               {username}
+               {userName}
             </div>
             <div className="user__email">
                <p>
@@ -110,6 +115,8 @@ class User extends React.Component {
       )
    }
 }
+
+
 
 
 ReactDOM.render(
