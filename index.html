@@ -60,7 +60,7 @@ class UserList extends React.Component {
    }
 
    static propTypes = {
-      users: PropTypes.array.isRequired,
+      users: PropTypes.arrayOf(PropTypes.object),
    }
 
    render() {
@@ -88,7 +88,11 @@ class User extends React.Component {
    }
 
    static propTypes = {
-      userProps: PropTypes.object.isRequired,
+      userProps: PropTypes.shape({
+         name: PropTypes.string,
+         username: PropTypes.string,
+         email: PropTypes.string
+      }),
    }
 
    render() {
@@ -115,6 +119,8 @@ class User extends React.Component {
       )
    }
 }
+
+
 
 
 
